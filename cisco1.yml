@@ -1,0 +1,13 @@
+---
+
+- hosts: routers
+
+
+  tasks:
+  - name: Interface-Configuation
+    cisco.ios.ios_l3_interfaces:
+      config:
+        - name: GigabitEthernet0/1
+          ipv4:
+            - address: 192.168.0.1/24
+      state: replaced

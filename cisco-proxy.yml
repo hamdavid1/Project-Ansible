@@ -1,0 +1,34 @@
+---
+- name: Replace Cisco IOS device configuration for webproxy
+  hosts: routers
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+    old_proxy_server: "zscalerproxy2.transport.nsw.gov.au"
+    new_proxy_server: "zscalerproxy.egslb.transport.nsw.gov.au"
+
+  tasks:
+    - name: Show current http client proxy-server config
+      ios_command:
+        commands: "show run | inc ip http client proxy-server"
+      register: proxy_server_config
+
+    - name: Replace old proxy server with new proxy server
+      ios_config:
+        lines:gi
+          - "no ip http client proxy-server {{ old_proxy_server }} proxy-port 29"
+          - "ip http client proxy-server {{ new_proxy_server }} proxy-port 29"
+      when: "'ip http client proxy-server' in proxy_server_config.stdout"
+      register: config_output
+
+
+    - name: Save configuration changes
+      ios_command:
+        commands: "write memory"
+
+
+    - name: Print the updated configuration
+      debug:
+        var: config_output.stdout_lines
+      when: config_output.changed
