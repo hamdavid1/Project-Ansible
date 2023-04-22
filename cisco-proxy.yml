@@ -25,7 +25,7 @@
 
     - name: Save configuration changes
       ios_command:
-        commands: "write memory1"
+        commands: "write memory2"
 
 
     - name: Print the updated configuration
