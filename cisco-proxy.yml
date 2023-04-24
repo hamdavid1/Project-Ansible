@@ -5,8 +5,8 @@
   connection: network_cli
 
   vars:
-    old_proxy_server: "zscalerproxy2.transport.nsw.gov.au"
-    new_proxy_server: "zscalerproxy.egslb.transport.nsw.gov.au"
+    old_proxy_server: "webrproxy.egslb.itservices.transport.nsw.gov.au"
+    new_proxy_server: "zscalerproxy01.itservices.transport.nsw.gov.au"
 
   tasks:
     - name: Show current http client proxy-server config
