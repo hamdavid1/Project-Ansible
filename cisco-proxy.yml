@@ -17,8 +17,8 @@
     - name: Replace old proxy server with new proxy server
       ios_config:
         lines:gi
-          - "no ip http client proxy-server {{ old_proxy_server }} proxy-port 29"
-          - "ip http client proxy-server {{ new_proxy_server }} proxy-port 29"
+          - "no ip http client proxy-server {{ old_proxy_server }} proxy-port 80"
+          - "ip http client proxy-server {{ new_proxy_server }} proxy-port 80"
       when: "'ip http client proxy-server' in proxy_server_config.stdout"
       register: config_output
 
